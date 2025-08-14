@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://djap73p6s8fvr"]
+[gd_scene load_steps=13 format=3 uid="uid://djap73p6s8fvr"]
 
 [ext_resource type="PackedScene" uid="uid://cf1pwgl0y0mi6" path="res://Player Controller/Player.tscn" id="1_h2yge"]
 [ext_resource type="Material" uid="uid://drm3clvqpis42" path="res://Models/Terrain/TerrainMaterial.tres" id="2_1bvp3"]
 [ext_resource type="ArrayMesh" uid="uid://cndcxj6gf0smr" path="res://Models/Terrain/Terrain.obj" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dwxdl6tkvd55k" path="res://Models/Terrain/Rock_0/Rock.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://k4560yidaxqm" path="res://AIController.gd" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://c2tcjs26j25ww" path="res://Models/Alien/alien-bug.glb" id="5_lquwl"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_1bvp3"]
@@ -71,6 +72,7 @@ environment = SubResource("Environment_lquwl")
 
 [node name="AI" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5685, 0.600431, -15.5266)
+script = ExtResource("5_7mycd")
 
 [node name="alien-bug" parent="AI" instance=ExtResource("5_lquwl")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
