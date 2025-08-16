@@ -16,11 +16,15 @@ var target_y_rot : float
 
 var player_distance : float
 
-func _process(delta: float):
+#calucate distance between AI and Player
+func _process(_delta: float):
 	if player != null :
 		player_distance = position.distance_to(player.position)
 		
+
 func _physics_process(delta: float):
+	
+#	Apply gravity if AI in air
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
@@ -29,6 +33,7 @@ func _physics_process(delta: float):
 	move_dir.y = 0
 	move_dir = move_dir.normalized()
 	
+#	if AI reached end or is stopped then AI stop
 	if agent.is_navigation_finished() or is_stopped:
 		move_dir = Vector3.ZERO
 		
@@ -48,7 +53,18 @@ func _physics_process(delta: float):
 	elif velocity.length() > 0:
 		target_y_rot = atan2(velocity.x, velocity.z)
 		
+#	rotate model to player smoothly
 	rotation.y = lerp_angle(rotation.y, target_y_rot, 0.1)
 	
 func move_to_position(to_position:Vector3, adjust_pos : bool = true):
-	pass
+	if not agent:
+		agent = get_node("NavigationAgent3D")
+		
+	is_stopped = false
+	
+	if adjust_pos:
+		var map = get_world_3d().navigation_map
+		var adjusted_pos = NavigationServer3D.map_get_closest_point(map, to_position)
+		agent.target_position = adjusted_pos
+	else:
+		agent.target_position = to_position
