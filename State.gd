@@ -22,7 +22,7 @@ func update(delta: float):
 func physics_update(delta:float):
 	pass
 
-func navigation_complete ():
+func navigation_complete():
 	pass
 	
 func random_offset() -> Vector3:
