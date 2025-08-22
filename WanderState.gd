@@ -4,20 +4,23 @@ var home_position : Vector3
 @export var max_wander_range : float = 6
 @export var min_wait_time : float = 0.2
 @export var max_wait_time : float = 2.0
+@export var chase_range : float = 5.0
 
-func enter ():
+func enter():
 	super.enter()
 	home_position = controller.position
-	
+	_new_wander_position()
+	controller.look_at_player = false  # Ensure AI isn't locked to player
+
 func navigation_complete():
 	var wait_time = randf_range(min_wait_time, max_wait_time)
-	await  get_tree().create_timer(wait_time).timeout
+	await get_tree().create_timer(wait_time).timeout
 	
 	if not active:
 		return
-		
-	_new_wander_position()
 	
+	_new_wander_position()
+
 func _new_wander_position():
-	var pos = home_position + random_offset() *randf_range(0, max_wander_range)
+	var pos = home_position + random_offset() * randf_range(0, max_wander_range)
 	controller.move_to_position(pos)
