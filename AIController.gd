@@ -43,7 +43,7 @@ func _physics_process(delta: float):
 		current_speed = run_speed
 		
 	velocity.x = move_dir.x * current_speed
-	velocity.x = move_dir.z * current_speed
+	velocity.z = move_dir.z * current_speed
 	
 	move_and_slide()
 	
